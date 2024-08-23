@@ -1,22 +1,25 @@
 {
-  "name": "discordjs-v14-typescrypt-bot-template",
-  "module": "index.ts",
-  "type": "module",
-  "scripts": {
-    "dev": "bun index.ts",
-    "lint": "bun lint",
-    "start": "bun start"
-  },
-  "devDependencies": {
-    "babel-eslint": "^10.1.0",
-    "bun-types": "latest",
-    "eslint": "^9.9.0",
-    "typescript": "^5.5.4"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  },
-  "dependencies": {
-    "zod": "^3.23.8"
-  }
+	"name": "discordjs-v14-typescrypt-bot-template",
+	"module": "index.ts",
+	"dependencies": {
+		"zod": "^3.23.8"
+	},
+	"devDependencies": {
+		"@eslint/js": "^9.9.0",
+		"babel-eslint": "^10.1.0",
+		"bun-types": "latest",
+		"eslint": "^9.9.0",
+		"globals": "^15.9.0",
+		"typescript": "^5.5.4",
+		"typescript-eslint": "^8.2.0"
+	},
+	"scripts": {
+		"dev": "bun --watch index.ts",
+		"lint": "bun eslint .",
+		"start": "bun index.ts"
+	},
+	"type": "module",
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	}
 }

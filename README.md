@@ -31,6 +31,7 @@ To set up your bot using this template, follow these steps:
    ```
 
 4. **Run the Bot**:
+
    ```bash
    npm run start
    ```
