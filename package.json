@@ -1,0 +1,22 @@
+{
+  "name": "discordjs-v14-typescrypt-bot-template",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "bun index.ts",
+    "lint": "bun lint",
+    "start": "bun start"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "bun-types": "latest",
+    "eslint": "^9.9.0",
+    "typescript": "^5.5.4"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "zod": "^3.23.8"
+  }
+}
