@@ -3,8 +3,6 @@ type Config = {
 	ready: string; // * ID of the channel to log ready messages
 };
 
-const config: Config = {
-	ready: "1038897300606562414",
+export const config: Config = {
+	ready: "1158057505012850759",
 };
-
-export default config;

@@ -6,6 +6,7 @@ const envSchema = z.object({
 		.default("development"),
 	DISCORD_TOKEN: z.string(),
 	DISCORD_CLIENT_ID: z.string(),
+	MONGO_DB_URI: z.string().url(),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);

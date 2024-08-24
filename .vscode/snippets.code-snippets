@@ -1,0 +1,51 @@
+{
+    "Discord Event": {
+        "prefix": "!event",
+        "body": [
+            "import { Client, Events, ${1:imports} } from \"discord.js\";",
+            "import chalk from \"chalk\";",
+            "import { config } from \"../../config/log\";",
+            "import { env } from \"../../../env\";",
+            "import type { Event } from \"../../handlers/event\";",
+            "",
+            "const ${2:eventName}: Event = {",
+            "    name: Events.${3:EventName},",
+            "    once: ${4|false,true|},",
+            "    async execute(client: Client, ${5:...args: any[]}) {",
+            "        console.log(chalk.cyan(`Event • ${2:eventName} triggered`));",
+            "",
+            "        try {",
+            "            ${6:// Your event logic here}",
+            "            ${7:// Example: await client.channels.cache.get('channelID').send('Message');}",
+            "        } catch (error) {",
+            "            console.error(chalk.red(`Error in ${2:eventName} event:`), error);",
+            "        }",
+            "    },",
+            "};",
+            "",
+            "export default ${2:eventName};"
+        ],
+        "description": "Create a Discord.js event"
+    },
+    "Discord Slash Command": {
+        "prefix": "!slashcmd",
+        "body": [
+            "import { SlashCommandBuilder } from \"@discordjs/builders\";",
+            "import { Client, CommandInteraction } from \"discord.js\";",
+            "",
+            "const data = new SlashCommandBuilder()",
+            "\t.setName(\"${1:commandName}\")",
+            "\t.setDescription(\"${2:Command description}\");",
+            "",
+            "async function execute({ interaction }: {interaction: CommandInteraction}) {",
+            "\tawait interaction.reply(\"${3:Reply message}\");",
+            "}",
+            "",
+            "export default {",
+            "\tdata,",
+            "\texecute,",
+            "};"
+        ],
+        "description": "Create a Discord.js slash command"
+    }
+}
