@@ -4,5 +4,7 @@ type Config = {
 };
 
 export const config: Config = {
-	ready: "1158057505012850759",
+	ready: "1276979388973322363",
 };
+
+export const ready = config.ready;

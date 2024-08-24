@@ -1,9 +1,6 @@
-export default {
-	// * You can remove/modify these
-	kick: "👊",
-	ban: "🔨",
-	mute: "🤐",
-	purge: "😝",
-	fail: "❌",
-	success: "✔",
-};
+export const kick = "👢";
+export const ban = "🚫";
+export const mute = "🔇";
+export const purge = "🗑️";
+export const fail = "❌";
+export const success = "✅";

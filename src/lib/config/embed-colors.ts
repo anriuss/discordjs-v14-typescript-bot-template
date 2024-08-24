@@ -1,8 +1,7 @@
-export default {
-	transparent: "0x2f3136", // ! Not working if user has different discord theme
-	gray: "0x36393F",
-	red: "0xFB2930",
-	green: "0x4EDA71",
-	cyan: "0x96E2FE",
-	orange: "0xFFA500",
-};
+export const transparent = 0x2f3136;
+export const gray = 0x36393f;
+export const red = 0xfb2930;
+export const green = 0x2ecc71;
+export const blue = 0x3498db;
+export const cyan = 0x96e2fe;
+export const orange = 0xffa500;

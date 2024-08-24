@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { fail } from "./src/lib/config/emojis";
 
 const envSchema = z.object({
 	NODE_ENV: z
@@ -12,7 +13,7 @@ const envSchema = z.object({
 const parsedEnv = envSchema.safeParse(process.env);
 
 if (!parsedEnv.success) {
-	console.error("❌ Invalid environment variables:", parsedEnv.error.format());
+	console.error(`${fail} Invalid environment variables:`, parsedEnv.error.format());
 	process.exit(1);
 }
 

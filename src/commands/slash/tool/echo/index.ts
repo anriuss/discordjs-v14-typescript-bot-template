@@ -4,9 +4,7 @@ import { CommandInteraction, PermissionFlagsBits } from "discord.js";
 const data = new SlashCommandBuilder()
 	.setName("echo")
 	.setDescription("repeats your message")
-	.setDefaultMemberPermissions(
-		PermissionFlagsBits.SendMessages | PermissionFlagsBits.MentionEveryone
-	)
+	.setDefaultMemberPermissions(PermissionFlagsBits.MentionEveryone)
 	.addStringOption((option) =>
 		option
 			.setName("message")

@@ -1,5 +1,6 @@
 import { CommandInteraction, Events } from "discord.js";
 import type { Event } from "../../handlers/event";
+import { fail } from "../../lib/config/emojis";
 
 const InteractionCreate: Event = {
 	name: Events.InteractionCreate,
@@ -12,7 +13,7 @@ const InteractionCreate: Event = {
 		if (!slashCommand) {
 			client.slashCommands.delete(interaction.commandName);
 			await interaction.reply({
-				content: ":x: This command no longer exists",
+				content: `${fail} This command no longer exists`,
 			});
 			return;
 		}
