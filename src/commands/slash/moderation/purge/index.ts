@@ -25,11 +25,12 @@ async function execute({ interaction }: { interaction: CommandInteraction }) {
 	const limit = interaction.options.getInteger('amount');
 	const channel = interaction.channel;
 
-	if (!channel || !limit)
+	if (!channel || !limit) {
 		return await interaction.reply({
 			content: `${fail} Invalid input`,
 			ephemeral: true,
 		});
+	}
 
 	if (!interaction.guild?.members.me?.permissions.has(PermissionFlagsBits.ManageMessages)) {
 		return await interaction.reply({
@@ -58,6 +59,7 @@ async function execute({ interaction }: { interaction: CommandInteraction }) {
 		await (channel as TextChannel).bulkDelete(filtered);
 		await interaction.editReply(responseMessage);
 	} catch (err) {
+		console.log(err);
 		await interaction.reply({
 			content: `${fail} An error occurred while trying to purge messages.`,
 			ephemeral: true,
