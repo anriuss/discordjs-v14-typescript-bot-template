@@ -1,10 +1,8 @@
-import { z } from "zod";
-import { fail } from "./src/lib/config/emojis";
+import { z } from 'zod';
+import { fail } from './src/lib/config/emojis';
 
 const envSchema = z.object({
-	NODE_ENV: z
-		.enum(["development", "test", "production"])
-		.default("development"),
+	NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
 	DISCORD_TOKEN: z.string(),
 	DISCORD_CLIENT_ID: z.string(),
 	MONGO_DB_URI: z.string().url(),

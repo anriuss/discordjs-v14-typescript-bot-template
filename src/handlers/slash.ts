@@ -1,19 +1,19 @@
-import { Client, ApplicationCommandDataResolvable } from "discord.js";
-import chalk from "chalk";
-import Table from "cli-table";
-import fs from "fs";
-import path from "path";
-import { capitalizeFirstLetter } from "../lib/utils/capitalize-first-letter";
+import { Client, ApplicationCommandDataResolvable } from 'discord.js';
+import chalk from 'chalk';
+import Table from 'cli-table';
+import fs from 'fs';
+import path from 'path';
+import { capitalizeFirstLetter } from '../lib/utils/capitalize-first-letter';
 
 export async function slashHandler(client: Client): Promise<void> {
 	const table = new Table({
-		head: ["Slash Commands", "Category", "Status"],
+		head: ['Slash Commands', 'Category', 'Status'],
 		colWidths: [30, 20, 10],
 	});
 
 	const slashCommandsArray: ApplicationCommandDataResolvable[] = [];
 
-	const commandsDir = path.join(__dirname, "../commands/slash");
+	const commandsDir = path.join(__dirname, '../commands/slash');
 	const categories = fs.readdirSync(commandsDir);
 
 	for (const category of categories) {
@@ -26,7 +26,7 @@ export async function slashHandler(client: Client): Promise<void> {
 				const commandPath = path.join(categoryPath, commandName);
 
 				if (fs.statSync(commandPath).isDirectory()) {
-					const indexFilePath = path.join(commandPath, "index.ts");
+					const indexFilePath = path.join(commandPath, 'index.ts');
 
 					if (fs.existsSync(indexFilePath)) {
 						const slashCommand = (await import(indexFilePath)).default;
@@ -37,13 +37,13 @@ export async function slashHandler(client: Client): Promise<void> {
 							table.push([
 								capitalizeFirstLetter(slashCommand.data.name),
 								capitalizeFirstLetter(category),
-								chalk.green("🟢"),
+								chalk.green('🟢'),
 							]);
 						} else {
 							table.push([
 								capitalizeFirstLetter(slashCommand.data.name),
 								capitalizeFirstLetter(category),
-								chalk.red("🔴"),
+								chalk.red('🔴'),
 							]);
 						}
 					}
@@ -56,5 +56,5 @@ export async function slashHandler(client: Client): Promise<void> {
 
 	await client.application?.commands
 		.set(slashCommandsArray)
-		.then(() => console.log(chalk.cyan("Slash commands • Registered")));
+		.then(() => console.log(chalk.cyan('Slash commands • Registered')));
 }

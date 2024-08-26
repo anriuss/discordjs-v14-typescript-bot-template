@@ -1,6 +1,6 @@
-import { CommandInteraction, Events } from "discord.js";
-import type { Event } from "../../handlers/event";
-import { fail } from "../../lib/config/emojis";
+import { CommandInteraction, Events } from 'discord.js';
+import type { Event } from '../../handlers/event';
+import { fail } from '../../lib/config/emojis';
 
 const InteractionCreate: Event = {
 	name: Events.InteractionCreate,

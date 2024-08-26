@@ -1,4 +1,4 @@
-import { Collection, CommandInteraction } from "discord.js";
+import { Collection, CommandInteraction } from 'discord.js';
 
 interface SlashCommand {
 	name: string;
@@ -12,7 +12,7 @@ interface SlashCommand {
 	}): Promise<void>;
 }
 
-declare module "discord.js" {
+declare module 'discord.js' {
 	interface Client {
 		slashCommands: Collection<string, SlashCommand>;
 	}

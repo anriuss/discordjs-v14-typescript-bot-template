@@ -4,7 +4,7 @@ type Config = {
 };
 
 const config: Config = {
-	prefix: "t!",
+	prefix: 't!',
 };
 
 export default config;

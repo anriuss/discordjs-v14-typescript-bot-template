@@ -1,23 +1,19 @@
-import { SlashCommandBuilder } from "@discordjs/builders";
-import {
-	CommandInteraction,
-	PermissionFlagsBits,
-	TextChannel,
-} from "discord.js";
-import { fail, purge } from "../../../../lib/config/emojis";
-import ms from "ms";
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { CommandInteraction, PermissionFlagsBits, TextChannel } from 'discord.js';
+import { fail, purge } from '../../../../lib/config/emojis';
+import ms from 'ms';
 
 const MAX_MESSAGES_PER_COMMAND = 99;
-const MESSAGE_DELETION_THRESHOLD = ms("14 days");
+const MESSAGE_DELETION_THRESHOLD = ms('14 days');
 
 const data = new SlashCommandBuilder()
-	.setName("purge")
-	.setDescription("Bulk delete messages")
+	.setName('purge')
+	.setDescription('Bulk delete messages')
 	.setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
-	.addIntegerOption((option) =>
+	.addIntegerOption(option =>
 		option
-			.setName("amount")
-			.setDescription("Number of messages to delete (1-99)")
+			.setName('amount')
+			.setDescription('Number of messages to delete (1-99)')
 			.setRequired(true)
 			.setMinValue(1)
 			.setMaxValue(MAX_MESSAGES_PER_COMMAND)
@@ -26,7 +22,7 @@ const data = new SlashCommandBuilder()
 async function execute({ interaction }: { interaction: CommandInteraction }) {
 	if (!interaction.isChatInputCommand()) return;
 
-	const limit = interaction.options.getInteger("amount");
+	const limit = interaction.options.getInteger('amount');
 	const channel = interaction.channel;
 
 	if (!channel || !limit)
@@ -35,11 +31,7 @@ async function execute({ interaction }: { interaction: CommandInteraction }) {
 			ephemeral: true,
 		});
 
-	if (
-		!interaction.guild?.members.me?.permissions.has(
-			PermissionFlagsBits.ManageMessages
-		)
-	) {
+	if (!interaction.guild?.members.me?.permissions.has(PermissionFlagsBits.ManageMessages)) {
 		return await interaction.reply({
 			content: `${fail} I don't have permissions to run that command.`,
 			ephemeral: true,
@@ -49,7 +41,7 @@ async function execute({ interaction }: { interaction: CommandInteraction }) {
 	try {
 		const messages = await channel?.messages.fetch({ limit });
 		const filtered = messages.filter(
-			(msg) => Date.now() - msg.createdTimestamp < MESSAGE_DELETION_THRESHOLD
+			msg => Date.now() - msg.createdTimestamp < MESSAGE_DELETION_THRESHOLD
 		);
 
 		let responseMessage = `${purge} deleted ${filtered.size} messages.`;
