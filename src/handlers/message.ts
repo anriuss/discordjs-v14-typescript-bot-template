@@ -1,19 +1,20 @@
-import { Client, ApplicationCommandDataResolvable } from 'discord.js';
+import { Client } from 'discord.js';
 import chalk from 'chalk';
 import Table from 'cli-table';
 import fs from 'fs';
 import path from 'path';
 import { capitalizeFirstLetter } from '../lib/utils/capitalize-first-letter';
+import { PrefixCommand } from '../lib/types/discord';
 
-export async function slashHandler(client: Client): Promise<void> {
+export async function prefixHandler(client: Client): Promise<void> {
 	const table = new Table({
-		head: ['Slash Commands', 'Category', 'Status'],
-		colWidths: [30, 20, 10],
+		head: ['Prefix Commands', 'Category', 'Aliases', 'Status'],
+		colWidths: [30, 20, 20, 10],
 	});
 
-	const slashCommandsArray: ApplicationCommandDataResolvable[] = [];
+	const prefixCommandsArray: PrefixCommand['data'][] = [];
 
-	const commandsDir = path.join(__dirname, '../commands/slash');
+	const commandsDir = path.join(__dirname, '../commands/prefix');
 	const categories = fs.readdirSync(commandsDir);
 
 	for (const category of categories) {
@@ -29,20 +30,27 @@ export async function slashHandler(client: Client): Promise<void> {
 					const indexFilePath = path.join(commandPath, 'index.ts');
 
 					if (fs.existsSync(indexFilePath)) {
-						const slashCommand = (await import(indexFilePath)).default;
-						client.slashCommands.set(slashCommand.data.name, slashCommand);
+						const prefixCommandModule = await import(indexFilePath);
+						const prefixCommand: PrefixCommand = prefixCommandModule.default;
 
-						if (slashCommand.data) {
-							slashCommandsArray.push(slashCommand.data.toJSON());
+						client.prefixCommands.set(
+							prefixCommand.data?.name || commandName,
+							prefixCommand
+						);
+
+						if (prefixCommand.data) {
+							prefixCommandsArray.push(prefixCommand.data);
 							table.push([
-								capitalizeFirstLetter(slashCommand.data.name),
+								capitalizeFirstLetter(prefixCommand.data.name),
 								capitalizeFirstLetter(category),
+								capitalizeFirstLetter(prefixCommand.data.aliases.join(', ')),
 								chalk.green('🟢'),
 							]);
 						} else {
 							table.push([
 								capitalizeFirstLetter(commandName),
 								capitalizeFirstLetter(category),
+								'Unknown Aliases',
 								chalk.red('🔴'),
 							]);
 						}
@@ -53,8 +61,4 @@ export async function slashHandler(client: Client): Promise<void> {
 	}
 
 	console.log(table.toString());
-
-	await client.application?.commands
-		.set(slashCommandsArray)
-		.then(() => console.log(chalk.cyan('Slash commands • Registered')));
 }

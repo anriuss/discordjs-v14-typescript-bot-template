@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import path from 'path';
 import type { Client, ClientEvents } from 'discord.js';
 import Table from 'cli-table';
@@ -8,7 +10,7 @@ export type Event = {
 	name: keyof ClientEvents;
 	once?: boolean;
 	rest?: boolean;
-	execute(client: Client, ...args: unknown[]): Promise<void>;
+	execute(client: Client, ...args: any[]): Promise<any>;
 };
 
 export async function eventHandler(client: Client): Promise<void> {
@@ -24,20 +26,18 @@ export async function eventHandler(client: Client): Promise<void> {
 
 		if (event.rest) {
 			if (event.once) {
-				client.rest.once(event.name, (...args: unknown[]) =>
-					event.execute(client, ...args)
-				);
+				client.rest.once(event.name, (...args: any[]) => event.execute(client, ...args));
 			} else {
-				client.rest.on(event.name, async (...args: unknown[]) => {
+				client.rest.on(event.name, async (...args: any[]) => {
 					await event.execute(client, ...args);
 				});
 			}
 		} else if (event.once) {
-			client.once(event.name, (...args: unknown[]) => {
+			client.once(event.name, (...args: any[]) => {
 				event.execute(client, ...args);
 			});
 		} else {
-			client.on(event.name, async (...args: unknown[]) => {
+			client.on(event.name, async (...args: any[]) => {
 				await event.execute(client, ...args);
 			});
 		}

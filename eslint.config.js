@@ -28,7 +28,7 @@ export default [
 			'no-var': 'error',
 			'object-curly-spacing': ['error', 'always'],
 			'prefer-const': 'error',
-			quotes: ['error', 'single'],
+			quotes: ['error', 'single', { avoidEscape: true }],
 			semi: ['error', 'always'],
 			'space-before-blocks': 'error',
 			'space-before-function-paren': [

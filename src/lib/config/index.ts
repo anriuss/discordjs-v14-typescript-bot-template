@@ -1,12 +1,12 @@
 // For type safety
 type Config = {
-	prefix: string;
+	PREFIX: string;
 };
 
 const config: Config = {
-	prefix: 't!',
+	PREFIX: 't!',
 };
 
 export default config;
 
-export const prefix = config.prefix;
+export const PREFIX = config.PREFIX;

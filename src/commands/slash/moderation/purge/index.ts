@@ -1,7 +1,8 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { CommandInteraction, PermissionFlagsBits, TextChannel } from 'discord.js';
+import { PermissionFlagsBits, TextChannel } from 'discord.js';
 import { fail, purge } from '../../../../lib/config/emojis';
 import ms from 'ms';
+import { SlashCommand } from '../../../../lib/types/discord';
 
 const MAX_MESSAGES_PER_COMMAND = 99;
 const MESSAGE_DELETION_THRESHOLD = ms('14 days');
@@ -19,7 +20,7 @@ const data = new SlashCommandBuilder()
 			.setMaxValue(MAX_MESSAGES_PER_COMMAND)
 	);
 
-async function execute({ interaction }: { interaction: CommandInteraction }) {
+const execute: SlashCommand['execute'] = async ({ interaction }) => {
 	if (!interaction.isChatInputCommand()) return;
 
 	const limit = interaction.options.getInteger('amount');
@@ -65,9 +66,9 @@ async function execute({ interaction }: { interaction: CommandInteraction }) {
 			ephemeral: true,
 		});
 	}
-}
+};
 
 export default {
 	data,
 	execute,
-};
+} satisfies SlashCommand;

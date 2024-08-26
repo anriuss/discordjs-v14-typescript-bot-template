@@ -1,19 +1,52 @@
-import { Collection, CommandInteraction } from 'discord.js';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+import { Collection, CommandInteraction, Message } from 'discord.js';
 
 interface SlashCommand {
-	name: string;
-	description: string;
-	execute({
+	data: ReturnType<(typeof SlashCommandBuilder)['toJSON']>;
+	execute: ({
 		client,
 		interaction,
 	}: {
 		client: Client;
 		interaction: CommandInteraction;
-	}): Promise<void>;
+	}) => Promise<any>;
+}
+
+interface PrefixCommand {
+	data: {
+		name: string;
+		description: string;
+		aliases: string[];
+	};
+	execute: ({
+		client,
+		message,
+		args,
+	}: {
+		client: Client;
+		message: Message;
+		args?: string[];
+	}) => Promise<any>;
+}
+
+interface aliasCommand {
+	name: string;
+	description: string;
+	execute({
+		client,
+		message,
+	}: {
+		client: Client;
+		message: Message;
+		args: string[];
+	}): Promise<any>;
 }
 
 declare module 'discord.js' {
 	interface Client {
 		slashCommands: Collection<string, SlashCommand>;
+		prefixCommands: Collection<string, PrefixCommand>;
+		aliasCommands: Collection<string, PrefixCommand['name']>;
 	}
 }

@@ -1,5 +1,6 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { CommandInteraction, PermissionFlagsBits } from 'discord.js';
+import { PermissionFlagsBits } from 'discord.js';
+import { SlashCommand } from '../../../../lib/types/discord';
 
 const data = new SlashCommandBuilder()
 	.setName('echo')
@@ -13,15 +14,15 @@ const data = new SlashCommandBuilder()
 			.setMaxLength(2000)
 	);
 
-async function execute({ interaction }: { interaction: CommandInteraction }) {
+const execute: SlashCommand['execute'] = async ({ interaction }) => {
 	if (!interaction.isChatInputCommand()) return;
 
 	const message = interaction.options.getString('message') ?? 'Error message was not provided';
 
 	await interaction.reply(message);
-}
+};
 
 export default {
 	data,
 	execute,
-};
+} satisfies SlashCommand;
