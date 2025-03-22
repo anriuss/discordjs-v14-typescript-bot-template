@@ -4,6 +4,8 @@ import { Collection, CommandInteraction, Message } from 'discord.js';
 
 interface SlashCommand {
 	data: ReturnType<(typeof SlashCommandBuilder)['toJSON']>;
+	cooldown?: number;
+	maxUses?: number;
 	execute: ({
 		client,
 		interaction,
@@ -18,6 +20,10 @@ interface PrefixCommand {
 		name: string;
 		description: string;
 		aliases: string[];
+		usage?: string;
+		examples?: string[];
+		cooldown?: number;
+		maxUses?: number;
 	};
 	execute: ({
 		client,

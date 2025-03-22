@@ -1,5 +1,4 @@
 import { Client, Events, TextChannel } from 'discord.js';
-import mongoose from 'mongoose';
 import chalk from 'chalk';
 import { ready as ReadyChannel } from '../../lib/config/log';
 import { env } from '../../../env';
@@ -18,14 +17,6 @@ const Ready: Event = {
 			} else {
 				console.warn(chalk.yellow(`Channel with ID ${ReadyChannel} not found.`));
 			}
-		}
-
-		mongoose.set('strictQuery', false);
-		try {
-			await mongoose.connect(env.MONGO_DB_URI);
-			console.log(chalk.cyan('Mongo Database • Connected'));
-		} catch (err) {
-			console.error(chalk.red('Mongo Database • Connection Error:'), err);
 		}
 	},
 };

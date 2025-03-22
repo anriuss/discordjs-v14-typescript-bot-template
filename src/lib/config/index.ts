@@ -1,11 +1,6 @@
-// For type safety
-type Config = {
-	PREFIX: string;
-};
+type Config = { PREFIX: string };
 
-const config: Config = {
-	PREFIX: 't!',
-};
+const config = { PREFIX: '$' } satisfies Config;
 
 export default config;
 

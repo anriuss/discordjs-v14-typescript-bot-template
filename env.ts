@@ -5,7 +5,7 @@ const envSchema = z.object({
 	NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
 	DISCORD_TOKEN: z.string(),
 	DISCORD_CLIENT_ID: z.string(),
-	MONGO_DB_URI: z.string().url(),
+	OPENAI_API_KEY: z.string(),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);
